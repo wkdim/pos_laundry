@@ -9,7 +9,7 @@ import '../../core/utils/theme_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   final Map<String, dynamic> admin;
-  const SettingsScreen({Key? key, required this.admin}) : super(key: key);
+  const SettingsScreen({super.key, required this.admin});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
         defaultTargetPlatform == TargetPlatform.iOS ||
         MediaQuery.of(context).size.width < 600;
 
-    void _confirmSignOut(BuildContext context) {
+    void confirmSignOut(BuildContext context) {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -64,22 +64,22 @@ class SettingsScreen extends StatelessWidget {
       );
     }
 
-    SnackBar _snackBar(String msg) => SnackBar(
+    SnackBar snackBar(String msg) => SnackBar(
       content: Text(msg),
       backgroundColor: AppColors2.surfaceHigh,
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     );
 
-    void _showChangePassword(BuildContext context) {
+    void showChangePassword(BuildContext context) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => ChangePasswordDialog(admin: admin)),
       );
     }
 
-    // ── APP BAR ───────────────────────────────
-    PreferredSizeWidget _buildAppBar() {
+    // App bar
+    PreferredSizeWidget buildAppBar() {
       return AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
@@ -102,7 +102,7 @@ class SettingsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors2.blue.withOpacity(0.4),
+                    color: AppColors2.blue.withValues(alpha: 0.4),
                     blurRadius: 16,
                     offset: const Offset(0, 4),
                   ),
@@ -129,8 +129,8 @@ class SettingsScreen extends StatelessWidget {
       );
     }
 
-    // ── BODY ──────────────────────────────────
-    Widget _buildBody() {
+    // Body
+    Widget buildBody() {
       final username = admin['Username']?.toString() ?? 'Admin';
       final role = admin['Role']?.toString() ?? 'User';
       final bool isSuperAdmin = admin['Role'] == 'SuperAdmin';
@@ -142,11 +142,11 @@ class SettingsScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 120),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                // ── Profile Hero ───────────────
+                // Profile Hero
                 _ProfileHero(username: username, role: role),
                 const SizedBox(height: 28),
 
-                // ── Appearance ─────────────────
+                // Appearance
                 _SectionLabel(
                   icon: Icons.palette_outlined,
                   title: 'Appearance',
@@ -160,7 +160,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
 
-                // ── Profile ────────────────────
+                // Profile
                 _SectionLabel(
                   icon: Icons.person_outline_rounded,
                   title: 'Profile',
@@ -181,11 +181,11 @@ class SettingsScreen extends StatelessWidget {
                   title: 'Change Password',
                   subtitle: 'Update your account password',
                   delay: const Duration(milliseconds: 100),
-                  onTap: () => _showChangePassword(context),
+                  onTap: () => showChangePassword(context),
                 ),
                 const SizedBox(height: 24),
 
-                // ── System Settings (SuperAdmin) ─
+                // System Settings (SuperAdmin)
                 if (isSuperAdmin) ...[
                   _SectionLabel(
                     icon: Icons.tune_rounded,
@@ -226,7 +226,7 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                 ],
 
-                // ── About ──────────────────────
+                // About
                 _SectionLabel(icon: Icons.info_outline_rounded, title: 'About'),
                 const SizedBox(height: 10),
                 _SettingCard(
@@ -244,7 +244,7 @@ class SettingsScreen extends StatelessWidget {
                   title: 'Sign Out',
                   subtitle: 'Log out of your account',
                   delay: const Duration(milliseconds: 100),
-                  onTap: () => _confirmSignOut(context),
+                  onTap: () => confirmSignOut(context),
                 ),
               ]),
             ),
@@ -253,15 +253,15 @@ class SettingsScreen extends StatelessWidget {
       );
     }
 
-    // ── Helpers ───────────────────────────────
+    // Helpers
 
     // Mobile: full-screen scaffold with AppBar and compact spacing
     if (isMobilePlatform) {
       return Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         extendBody: true,
-        appBar: _buildAppBar(),
-        body: _buildBody(),
+        appBar: buildAppBar(),
+        body: buildBody(),
         // bottomNavigationBar: _buildBottomNav(),
       );
     }
@@ -277,7 +277,7 @@ class SettingsScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isDark ? 0.3 : 0.06),
+              color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.06),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -305,7 +305,7 @@ class SettingsScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.blue.shade700.withOpacity(0.12),
+                        color: Colors.blue.shade700.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Icon(
@@ -417,7 +417,7 @@ class SettingsScreen extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: isDark ? colorScheme.surfaceVariant : Colors.grey.shade50,
+          color: isDark ? colorScheme.surfaceContainerHighest : Colors.grey.shade50,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isDark ? Colors.grey.shade700 : Colors.grey.shade200,
@@ -428,7 +428,7 @@ class SettingsScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFF2196F3).withOpacity(0.1),
+                color: const Color(0xFF2196F3).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
@@ -466,7 +466,7 @@ class SettingsScreen extends StatelessWidget {
             Switch(
               value: isDark,
               onChanged: (_) => themeProvider.toggleTheme(),
-              activeColor: const Color(0xFF2196F3),
+              activeThumbColor: const Color(0xFF2196F3),
             ),
           ],
         ),
@@ -525,7 +525,7 @@ class SettingsScreen extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: isDark ? colorScheme.surfaceVariant : Colors.grey.shade50,
+            color: isDark ? colorScheme.surfaceContainerHighest : Colors.grey.shade50,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: isDark ? Colors.grey.shade700 : Colors.grey.shade200,
@@ -536,7 +536,7 @@ class SettingsScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2196F3).withOpacity(0.1),
+                  color: const Color(0xFF2196F3).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(icon, color: const Color(0xFF2196F3), size: 24),
@@ -611,11 +611,9 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
 //  SUB-WIDGETS
-// ─────────────────────────────────────────────
 
-// ── Profile Hero ──────────────────────────
+// Profile Hero
 class _ProfileHero extends StatelessWidget {
   final String username;
   final String role;
@@ -628,13 +626,13 @@ class _ProfileHero extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors2.blue.withOpacity(0.12),
-            AppColors2.teal.withOpacity(0.06),
+            AppColors2.blue.withValues(alpha: 0.12),
+            AppColors2.teal.withValues(alpha: 0.06),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(color: AppColors2.blue.withOpacity(0.2)),
+        border: Border.all(color: AppColors2.blue.withValues(alpha: 0.2)),
         borderRadius: BorderRadius.circular(22),
       ),
       child: Row(
@@ -652,7 +650,7 @@ class _ProfileHero extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors2.blue.withOpacity(0.35),
+                  color: AppColors2.blue.withValues(alpha: 0.35),
                   blurRadius: 16,
                   offset: const Offset(0, 4),
                 ),
@@ -691,9 +689,9 @@ class _ProfileHero extends StatelessWidget {
                     vertical: 3,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors2.blue.withOpacity(0.15),
+                    color: AppColors2.blue.withValues(alpha: 0.15),
                     border: Border.all(
-                      color: AppColors2.blue.withOpacity(0.25),
+                      color: AppColors2.blue.withValues(alpha: 0.25),
                     ),
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -744,7 +742,7 @@ class _ProfileHero extends StatelessWidget {
   }
 }
 
-// ── Section Label ─────────────────────────
+// Section Label
 class _SectionLabel extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -768,7 +766,7 @@ class _SectionLabel extends StatelessWidget {
   );
 }
 
-// ── Dark Mode Card ────────────────────────
+// Dark Mode Card
 class _DarkModeCard extends StatelessWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
@@ -800,7 +798,7 @@ class _DarkModeCard extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: (value ? AppColors2.blue : AppColors2.amber)
-                      .withOpacity(0.35),
+                      .withValues(alpha: 0.35),
                   blurRadius: 10,
                   offset: const Offset(0, 3),
                 ),
@@ -840,7 +838,7 @@ class _DarkModeCard extends StatelessWidget {
             value: value,
             onChanged: onChanged,
             activeColor: AppColors2.blue,
-            activeTrackColor: AppColors2.blue.withOpacity(0.3),
+            activeTrackColor: AppColors2.blue.withValues(alpha: 0.3),
             inactiveThumbColor: AppColors2.textMuted,
             inactiveTrackColor: AppColors2.surfaceHigh,
           ),
@@ -850,7 +848,7 @@ class _DarkModeCard extends StatelessWidget {
   }
 }
 
-// ── Setting Card ──────────────────────────
+// Setting Card
 class _SettingCard extends StatefulWidget {
   final IconData icon;
   final Color iconColor;
@@ -924,7 +922,7 @@ class _SettingCardState extends State<_SettingCard>
               color: _pressed ? AppColors2.surfaceHigh : AppColors2.surface,
               border: Border.all(
                 color: _pressed
-                    ? widget.iconColor.withOpacity(0.25)
+                    ? widget.iconColor.withValues(alpha: 0.25)
                     : AppColors2.border,
               ),
               borderRadius: BorderRadius.circular(16),
@@ -935,9 +933,9 @@ class _SettingCardState extends State<_SettingCard>
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: widget.iconColor.withOpacity(0.1),
+                    color: widget.iconColor.withValues(alpha: 0.1),
                     border: Border.all(
-                      color: widget.iconColor.withOpacity(0.18),
+                      color: widget.iconColor.withValues(alpha: 0.18),
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -982,7 +980,7 @@ class _SettingCardState extends State<_SettingCard>
   }
 }
 
-// ── Danger Card (Sign Out) ────────────────
+// Danger Card (Sign Out)
 class _DangerCard extends StatefulWidget {
   final IconData icon;
   final String title;
@@ -1050,12 +1048,12 @@ class _DangerCardState extends State<_DangerCard>
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             decoration: BoxDecoration(
               color: _pressed
-                  ? Colors.red.withOpacity(0.08)
-                  : Colors.red.withOpacity(0.04),
+                  ? Colors.red.withValues(alpha: 0.08)
+                  : Colors.red.withValues(alpha: 0.04),
               border: Border.all(
                 color: _pressed
-                    ? Colors.red.withOpacity(0.35)
-                    : Colors.red.withOpacity(0.15),
+                    ? Colors.red.withValues(alpha: 0.35)
+                    : Colors.red.withValues(alpha: 0.15),
               ),
               borderRadius: BorderRadius.circular(16),
             ),
@@ -1065,8 +1063,8 @@ class _DangerCardState extends State<_DangerCard>
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.red.withOpacity(0.1),
-                    border: Border.all(color: Colors.red.withOpacity(0.2)),
+                    color: Colors.red.withValues(alpha: 0.1),
+                    border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(widget.icon, color: Colors.redAccent, size: 19),
@@ -1089,7 +1087,7 @@ class _DangerCardState extends State<_DangerCard>
                         widget.subtitle,
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.red.withOpacity(0.5),
+                          color: Colors.red.withValues(alpha: 0.5),
                         ),
                       ),
                     ],
@@ -1098,7 +1096,7 @@ class _DangerCardState extends State<_DangerCard>
                 Icon(
                   Icons.chevron_right_rounded,
                   size: 20,
-                  color: Colors.red.withOpacity(0.4),
+                  color: Colors.red.withValues(alpha: 0.4),
                 ),
               ],
             ),
@@ -1109,15 +1107,15 @@ class _DangerCardState extends State<_DangerCard>
   }
 }
 
-// ── User Info Bottom Sheet ─────────────────
+// User Info Bottom Sheet
 class _UserInfoSheet extends StatelessWidget {
   final Map<String, dynamic> admin;
   const _UserInfoSheet({required this.admin});
 
   @override
   Widget build(BuildContext context) {
-    final username = admin['Username']?.toString() ?? '—';
-    final role = admin['Role']?.toString() ?? '—';
+    final username = admin['Username']?.toString() ?? '-';
+    final role = admin['Role']?.toString() ?? '-';
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
@@ -1173,7 +1171,7 @@ class _UserInfoSheet extends StatelessWidget {
   }
 }
 
-// ── Full-screen User Info (matches app aesthetics) ─────────────────
+// Full-screen User Info (matches app aesthetics)
 class _UserInfoScreen extends StatelessWidget {
   final Map<String, dynamic> admin;
   const _UserInfoScreen({required this.admin});
@@ -1210,7 +1208,7 @@ class _UserInfoScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors2.blue.withOpacity(0.35),
+                    color: AppColors2.blue.withValues(alpha: 0.35),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),

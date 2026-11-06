@@ -7,6 +7,8 @@ import '../../core/utils/theme_provider.dart';
 import '../dashboard/dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -26,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _loading = true);
     try {
       final admin = await DatabaseHelper.instance.login(_user.text, _pass.text);
+      if (!mounted) return;
       setState(() => _loading = false);
       if (admin != null) {
         Navigator.pushReplacement(
@@ -38,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ).showSnackBar(SnackBar(content: Text('Invalid credentials')));
       }
     } catch (e) {
+      if (!mounted) return;
       setState(() => _loading = false);
       ScaffoldMessenger.of(
         context,
@@ -87,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
-                              color: AppColors2.blue.withOpacity(0.08),
+                              color: AppColors2.blue.withValues(alpha: 0.08),
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -305,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(isDark ? 0.5 : 0.3),
+                          color: Colors.black.withValues(alpha: isDark ? 0.5 : 0.3),
                           blurRadius: 30,
                           offset: const Offset(0, 15),
                         ),
@@ -318,7 +322,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           padding: EdgeInsets.all(isMobilePlatform ? 16 : 20),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF184A90).withOpacity(0.1),
+                            color: const Color(0xFF184A90).withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(

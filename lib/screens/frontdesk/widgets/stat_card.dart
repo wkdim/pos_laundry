@@ -46,7 +46,7 @@ class StatCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: accentColor.withOpacity(0.10),
+                  color: accentColor.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(icon, color: accentColor, size: 24),
@@ -135,7 +135,7 @@ class StatCard extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: accentColor.withOpacity(0.10),
+                      color: accentColor.withValues(alpha: 0.10),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(icon, color: accentColor, size: 28),
@@ -215,14 +215,14 @@ class _HoverCardState extends State<HoverCard> {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: _isHovered
-                ? colorScheme.primary.withOpacity(0.25)
-                : colorScheme.outline.withOpacity(isDark ? 0.3 : 1.0),
+                ? colorScheme.primary.withValues(alpha: 0.25)
+                : colorScheme.outline.withValues(alpha: isDark ? 0.3 : 1.0),
             width: 1,
           ),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(isDark ? 0.18 : 0.10),
+                    color: Colors.black.withValues(alpha: isDark ? 0.18 : 0.10),
                     blurRadius: 16,
                     offset: const Offset(0, 8),
                     spreadRadius: 1,
@@ -230,7 +230,7 @@ class _HoverCardState extends State<HoverCard> {
                 ]
               : [
                   BoxShadow(
-                    color: Colors.black.withOpacity(isDark ? 0.08 : 0.05),
+                    color: Colors.black.withValues(alpha: isDark ? 0.08 : 0.05),
                     blurRadius: 8,
                     offset: const Offset(0, 3),
                   ),

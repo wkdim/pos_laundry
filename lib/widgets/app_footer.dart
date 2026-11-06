@@ -27,12 +27,12 @@ class AppFooter extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: isDark ? colorScheme.surfaceVariant : Colors.grey.shade50,
+          color: isDark ? colorScheme.surfaceContainerHighest : Colors.grey.shade50,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
           border: Border(
             top: BorderSide(
               color: isDark
-                  ? colorScheme.outline.withOpacity(0.12)
+                  ? colorScheme.outline.withValues(alpha: 0.12)
                   : Colors.grey.shade200,
             ),
           ),
@@ -73,7 +73,7 @@ class AppFooter extends StatelessWidget {
             Text(
               'Audit Log: ${DateFormat('yyyy-MM-dd HH:mm').format(auditLogTime)}',
               style: TextStyle(
-                color: colorScheme.onSurface.withOpacity(0.7),
+                color: colorScheme.onSurface.withValues(alpha: 0.7),
                 fontSize: 12,
               ),
               overflow: TextOverflow.ellipsis,

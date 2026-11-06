@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class DailyChart extends StatelessWidget {
   final List<Map<String, dynamic>> data;
-  DailyChart({required this.data});
+  const DailyChart({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class DailyChart extends StatelessWidget {
                           show: true,
                           color: Theme.of(
                             context,
-                          ).colorScheme.primary.withOpacity(0.08),
+                          ).colorScheme.primary.withValues(alpha: 0.08),
                         ),
                       ),
                     ],

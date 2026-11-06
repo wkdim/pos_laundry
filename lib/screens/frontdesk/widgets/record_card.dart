@@ -29,20 +29,20 @@ class _HoverCardState extends State<HoverCard> {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: _isHovered
-                ? colorScheme.primary.withOpacity(0.3)
-                : colorScheme.outline.withOpacity(isDark ? 0.3 : 1.0),
+                ? colorScheme.primary.withValues(alpha: 0.3)
+                : colorScheme.outline.withValues(alpha: isDark ? 0.3 : 1.0),
           ),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(isDark ? 0.25 : 0.10),
+                    color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.10),
                     blurRadius: 16,
                     offset: const Offset(0, 8),
                   ),
                 ]
               : [
                   BoxShadow(
-                    color: Colors.black.withOpacity(isDark ? 0.10 : 0.05),
+                    color: Colors.black.withValues(alpha: isDark ? 0.10 : 0.05),
                     blurRadius: 8,
                     offset: const Offset(0, 3),
                   ),
@@ -108,7 +108,7 @@ class RecordCard extends StatelessWidget {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                    color: finalStatusColor.withOpacity(0.12),
+                    color: finalStatusColor.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
@@ -173,7 +173,7 @@ class RecordCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: finalStatusColor.withOpacity(0.12),
+                        color: finalStatusColor.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -223,7 +223,7 @@ class RecordCard extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: finalStatusColor.withOpacity(0.12),
+                      color: finalStatusColor.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(

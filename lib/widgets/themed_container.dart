@@ -10,12 +10,12 @@ class ThemedContainer extends StatelessWidget {
   final double? borderRadius;
 
   const ThemedContainer({
-    Key? key,
+    super.key,
     required this.child,
     this.margin,
     this.padding,
     this.borderRadius,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,8 @@ class ThemedContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius ?? 12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(
-                Theme.of(context).brightness == Brightness.dark ? 0.22 : 0.04,
+              color: Colors.black.withValues(
+                alpha: Theme.of(context).brightness == Brightness.dark ? 0.22 : 0.04,
               ),
               blurRadius: 8,
               offset: const Offset(0, 2),
@@ -57,7 +57,7 @@ class ThemedContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius ?? 18),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.3 : 0.06),
+            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.06),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),

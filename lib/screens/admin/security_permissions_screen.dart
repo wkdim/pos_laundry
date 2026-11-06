@@ -5,7 +5,7 @@ import '../../core/constants/app_colors.dart';
 import '../../core/utils/theme_provider.dart';
 
 class SecurityPermissionsScreen extends StatefulWidget {
-  const SecurityPermissionsScreen({Key? key}) : super(key: key);
+  const SecurityPermissionsScreen({super.key});
 
   @override
   State<SecurityPermissionsScreen> createState() =>
@@ -79,7 +79,7 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
   Future<void> _showRoleEditor({int? index}) async {
     final editing = index != null;
     final Map<String, dynamic> role = editing
-        ? Map<String, dynamic>.from(_roles[index!])
+        ? Map<String, dynamic>.from(_roles[index])
         : {'name': '', 'permissions': <String, bool>{}};
 
     // ensure all permission keys exist
@@ -129,7 +129,7 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors2.blue.withOpacity(0.4),
+                            color: AppColors2.blue.withValues(alpha: 0.4),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
                           ),
@@ -181,13 +181,13 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
                           return StatefulBuilder(
                             builder: (c, setSt) => SwitchListTile(
                               value: perms[k]!,
-                              activeColor: AppColors2.blue,
+                              activeThumbColor: AppColors2.blue,
                               title: Text(p['label']!),
                               dense: true,
                               onChanged: (v) => setSt(() => perms[k] = v),
                             ),
                           );
-                        }).toList(),
+                        }),
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -204,10 +204,11 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
                                 role['name'] = name;
                                 role['permissions'] = perms;
                                 setState(() {
-                                  if (editing)
-                                    _roles[index!] = role;
-                                  else
+                                  if (editing) {
+                                    _roles[index] = role;
+                                  } else {
                                     _roles.add(role);
+                                  }
                                 });
                                 Navigator.pop(ctx, true);
                               },
@@ -229,6 +230,7 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
       );
 
       if (saved == true) {
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(editing ? 'Role updated' : 'Role added'),
@@ -273,13 +275,13 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
                 return StatefulBuilder(
                   builder: (c, setSt) => SwitchListTile(
                     value: perms[k]!,
-                    activeColor: AppColors2.blue,
+                    activeThumbColor: AppColors2.blue,
                     title: Text(p['label']!),
                     dense: true,
                     onChanged: (v) => setSt(() => perms[k] = v),
                   ),
                 );
-              }).toList(),
+              }),
             ],
           ),
         ),
@@ -295,10 +297,11 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
               role['name'] = name;
               role['permissions'] = perms;
               setState(() {
-                if (editing)
-                  _roles[index!] = role;
-                else
+                if (editing) {
+                  _roles[index] = role;
+                } else {
                   _roles.add(role);
+                }
               });
               Navigator.pop(ctx, true);
             },
@@ -310,6 +313,7 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
     );
 
     if (result == true) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(editing ? 'Role updated' : 'Role added'),
@@ -341,6 +345,7 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
     );
 
     if (ok == true) {
+      if (!mounted) return;
       setState(() => _roles.removeAt(index));
       ScaffoldMessenger.of(
         context,
@@ -372,7 +377,7 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: AppColors2.blue.withOpacity(0.08),
+                  color: AppColors2.blue.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
@@ -522,7 +527,7 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors2.blue.withOpacity(0.4),
+                      color: AppColors2.blue.withValues(alpha: 0.4),
                       blurRadius: 16,
                       offset: const Offset(0, 4),
                     ),
@@ -670,7 +675,7 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isDark ? 0.3 : 0.06),
+              color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.06),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -697,7 +702,7 @@ class _SecurityPermissionsScreenState extends State<SecurityPermissionsScreen> {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.blue.shade700.withOpacity(0.12),
+                        color: Colors.blue.shade700.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Icon(

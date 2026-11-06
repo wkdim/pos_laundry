@@ -52,8 +52,8 @@ class ModernCardContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(
-                Theme.of(context).brightness == Brightness.dark ? 0.3 : 0.10,
+              color: Colors.black.withValues(
+                alpha: Theme.of(context).brightness == Brightness.dark ? 0.3 : 0.10,
               ),
               blurRadius: 16,
               offset: const Offset(0, 4),

@@ -88,7 +88,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors2.blue.withOpacity(0.4),
+                            color: AppColors2.blue.withValues(alpha: 0.4),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
                           ),
@@ -160,6 +160,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
                                   price,
                                 );
                               }
+                              if (!ctx.mounted) return;
                               Navigator.pop(ctx, true);
                             },
                             style: ElevatedButton.styleFrom(
@@ -225,6 +226,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
                   price,
                 );
               }
+              if (!ctx.mounted) return;
               Navigator.pop(ctx, true);
             },
             style: ElevatedButton.styleFrom(backgroundColor: AppColors2.blue),
@@ -261,6 +263,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
           ElevatedButton(
             onPressed: () async {
               await DatabaseHelper.instance.deleteServiceType(serviceType.id!);
+              if (!ctx.mounted) return;
               Navigator.pop(ctx, true);
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
@@ -315,7 +318,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors2.blue.withOpacity(0.4),
+                      color: AppColors2.blue.withValues(alpha: 0.4),
                       blurRadius: 16,
                       offset: const Offset(0, 4),
                     ),
@@ -365,7 +368,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isDark ? 0.3 : 0.06),
+              color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.06),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -391,7 +394,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.blue.shade700.withOpacity(0.12),
+                      color: Colors.blue.shade700.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
@@ -504,7 +507,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
       return ListView.separated(
         padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
         itemCount: _serviceTypes.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
+        separatorBuilder: (_, _) => const SizedBox(height: 12),
         itemBuilder: (context, index) {
           final s = _serviceTypes[index];
           return Material(
@@ -528,9 +531,9 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF2196F3).withOpacity(0.1),
+                        color: const Color(0xFF2196F3).withValues(alpha: 0.1),
                         border: Border.all(
-                          color: const Color(0xFF2196F3).withOpacity(0.18),
+                          color: const Color(0xFF2196F3).withValues(alpha: 0.18),
                         ),
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -598,9 +601,9 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
     return LayoutBuilder(
       builder: (context, constraints) {
         int crossAxisCount = 2;
-        if (constraints.maxWidth > 1400)
+        if (constraints.maxWidth > 1400) {
           crossAxisCount = 4;
-        else if (constraints.maxWidth > 1000)
+        } else if (constraints.maxWidth > 1000)
           crossAxisCount = 3;
         return GridView.builder(
           padding: const EdgeInsets.all(4),
@@ -627,7 +630,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
                         Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF2196F3).withOpacity(0.1),
+                            color: const Color(0xFF2196F3).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Icon(
@@ -744,8 +747,7 @@ class _ManageServiceTypesScreenState extends State<ManageServiceTypesScreen> {
 class HoverCard extends StatefulWidget {
   final Widget child;
   final bool isDark;
-  const HoverCard({Key? key, required this.child, required this.isDark})
-    : super(key: key);
+  const HoverCard({super.key, required this.child, required this.isDark});
   @override
   State<HoverCard> createState() => _HoverCardState();
 }
@@ -780,8 +782,8 @@ class _HoverCardState extends State<HoverCard> {
             boxShadow: _isHovered
                 ? [
                     BoxShadow(
-                      color: Colors.black.withOpacity(
-                        widget.isDark ? 0.4 : 0.10,
+                      color: Colors.black.withValues(
+                        alpha: widget.isDark ? 0.4 : 0.10,
                       ),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
@@ -789,8 +791,8 @@ class _HoverCardState extends State<HoverCard> {
                   ]
                 : [
                     BoxShadow(
-                      color: Colors.black.withOpacity(
-                        widget.isDark ? 0.2 : 0.04,
+                      color: Colors.black.withValues(
+                        alpha: widget.isDark ? 0.2 : 0.04,
                       ),
                       blurRadius: 4,
                       offset: const Offset(0, 1),

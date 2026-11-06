@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import '../database/database_helper.dart';
-import '../constants/app_colors.dart';
 
 /// Simple offline sync service.
 /// - monitors connectivity

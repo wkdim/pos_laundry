@@ -42,7 +42,7 @@ class StatCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: accentColor.withOpacity(0.10),
+                  color: accentColor.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(icon, color: accentColor, size: 28),
@@ -88,12 +88,12 @@ class StatCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 6,
             offset: const Offset(0, 2),
           ),
         ],
-        border: Border.all(color: accentColor.withOpacity(0.18)),
+        border: Border.all(color: accentColor.withValues(alpha: 0.18)),
       ),
       padding: const EdgeInsets.all(24),
       child: Row(
@@ -101,7 +101,7 @@ class StatCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: accentColor.withOpacity(0.10),
+              color: accentColor.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Icon(icon, color: accentColor, size: 32),
@@ -137,7 +137,7 @@ class StatCard extends StatelessWidget {
   }
 }
 
-// Reusable HoverCard (same as in DownloadsScreen – add this if not already present)
+// Reusable HoverCard
 class HoverCard extends StatefulWidget {
   final Widget child;
 
@@ -163,14 +163,14 @@ class _HoverCardState extends State<HoverCard> {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: _isHovered
-                ? Colors.blue.withOpacity(0.25)
+                ? Colors.blue.withValues(alpha: 0.25)
                 : Colors.grey.shade200,
             width: 1,
           ),
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.10),
+                    color: Colors.black.withValues(alpha: 0.10),
                     blurRadius: 16,
                     offset: const Offset(0, 8),
                     spreadRadius: 1,
@@ -178,7 +178,7 @@ class _HoverCardState extends State<HoverCard> {
                 ]
               : [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 8,
                     offset: const Offset(0, 3),
                   ),

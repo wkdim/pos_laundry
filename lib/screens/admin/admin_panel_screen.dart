@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:pos_laundry/screens/audit/audit_log_screen.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
-import '../../widgets/app_header.dart';
 import '../../widgets/app_footer.dart';
 import '../../widgets/action_buttons_row.dart';
 import '../../widgets/modern_card_container.dart';
@@ -17,7 +15,7 @@ class AdminPanelScreen extends StatefulWidget {
   final Map<String, dynamic> admin;
   final VoidCallback? onShowAuditLog; // <-- Add this
 
-  AdminPanelScreen({
+  const AdminPanelScreen({
     super.key,
     required this.admin,
     this.onShowAuditLog,
@@ -129,7 +127,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen>
 
     // Mobile layout: AppBar + FAB, compact content
 
-    PreferredSizeWidget _buildAppBar() {
+    PreferredSizeWidget buildAppBar() {
       return AppBar(
         backgroundColor: AppColors2.bg,
         elevation: 0,
@@ -152,7 +150,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen>
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors2.blue.withOpacity(0.4),
+                    color: AppColors2.blue.withValues(alpha: 0.4),
                     blurRadius: 16,
                     offset: const Offset(0, 4),
                   ),
@@ -190,7 +188,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen>
       );
     }
 
-    Widget _buildBody() {
+    Widget buildBody() {
       return CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -245,7 +243,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen>
       );
     }
 
-    Widget _buildFab() {
+    Widget buildFab() {
       return GestureDetector(
         onTapDown: (_) => _fabController.forward(),
         onTapUp: (_) {
@@ -267,7 +265,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen>
               borderRadius: BorderRadius.circular(18),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors2.blue.withOpacity(0.5),
+                  color: AppColors2.blue.withValues(alpha: 0.5),
                   blurRadius: 24,
                   offset: const Offset(0, 8),
                 ),
@@ -283,9 +281,9 @@ class _AdminPanelScreenState extends State<AdminPanelScreen>
       return Scaffold(
         backgroundColor: AppColors2.bg,
         extendBody: true,
-        appBar: _buildAppBar(),
-        body: _buildBody(),
-        floatingActionButton: _buildFab(),
+        appBar: buildAppBar(),
+        body: buildBody(),
+        floatingActionButton: buildFab(),
         // bottomNavigationBar: _buildBottomNav(),
       );
     }
@@ -405,8 +403,8 @@ class _AdminPanelScreenState extends State<AdminPanelScreen>
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(
-                                  isDark ? 0.3 : 0.04,
+                                color: Colors.black.withValues(
+                                  alpha: isDark ? 0.3 : 0.04,
                                 ),
                                 blurRadius: 6,
                                 offset: const Offset(0, 2),
@@ -517,7 +515,7 @@ class _AppBarIconBtn extends StatelessWidget {
   }
 }
 
-// ── Quick Actions ─────────────────────────
+// Quick Actions
 class _QuickActionsRow extends StatelessWidget {
   final VoidCallback onAddAdmin;
   final VoidCallback onChangePassword;
@@ -622,7 +620,7 @@ class _QuickActionCardState extends State<_QuickActionCard> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: widget.glowColor.withOpacity(0.4),
+                      color: widget.glowColor.withValues(alpha: 0.4),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),
@@ -649,7 +647,7 @@ class _QuickActionCardState extends State<_QuickActionCard> {
   }
 }
 
-// ── Section Header ────────────────────────
+// Section Header
 class _SectionHeader extends StatelessWidget {
   final String title;
   final String? badge;
@@ -673,8 +671,8 @@ class _SectionHeader extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
             decoration: BoxDecoration(
-              color: AppColors2.blue.withOpacity(0.12),
-              border: Border.all(color: AppColors2.blue.withOpacity(0.25)),
+              color: AppColors2.blue.withValues(alpha: 0.12),
+              border: Border.all(color: AppColors2.blue.withValues(alpha: 0.25)),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -692,7 +690,7 @@ class _SectionHeader extends StatelessWidget {
   }
 }
 
-// ── Admin Card ────────────────────────────
+// Admin Card
 class _AdminCard extends StatefulWidget {
   final Map<String, dynamic> admin;
   final bool isSuperAdmin;
@@ -887,7 +885,7 @@ class _Avatar extends StatelessWidget {
             boxShadow: isActive
                 ? [
                     BoxShadow(
-                      color: AppColors2.blue.withOpacity(0.3),
+                      color: AppColors2.blue.withValues(alpha: 0.3),
                       blurRadius: 14,
                       offset: const Offset(0, 4),
                     ),
@@ -913,7 +911,7 @@ class _Avatar extends StatelessWidget {
               boxShadow: isActive
                   ? [
                       BoxShadow(
-                        color: AppColors2.green.withOpacity(0.5),
+                        color: AppColors2.green.withValues(alpha: 0.5),
                         blurRadius: 5,
                       ),
                     ]
@@ -935,10 +933,10 @@ class _StatusPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: isActive ? AppColors2.green.withOpacity(0.1) : AppColors2.border,
+        color: isActive ? AppColors2.green.withValues(alpha: 0.1) : AppColors2.border,
         border: Border.all(
           color: isActive
-              ? AppColors2.green.withOpacity(0.25)
+              ? AppColors2.green.withValues(alpha: 0.25)
               : AppColors2.border,
         ),
         borderRadius: BorderRadius.circular(20),
@@ -965,8 +963,8 @@ class _RoleTag extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: AppColors2.blue.withOpacity(0.1),
-        border: Border.all(color: AppColors2.blue.withOpacity(0.22)),
+        color: AppColors2.blue.withValues(alpha: 0.1),
+        border: Border.all(color: AppColors2.blue.withValues(alpha: 0.22)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
@@ -1016,12 +1014,12 @@ class _MiniBtnState extends State<_MiniBtn> {
         decoration: BoxDecoration(
           color: _pressed
               ? (widget.danger
-                    ? Colors.red.withOpacity(0.15)
+                    ? Colors.red.withValues(alpha: 0.15)
                     : AppColors2.surfaceHigh)
               : AppColors2.surfaceHigh,
           border: Border.all(
             color: _pressed && widget.danger
-                ? Colors.red.withOpacity(0.3)
+                ? Colors.red.withValues(alpha: 0.3)
                 : AppColors2.border,
           ),
           borderRadius: BorderRadius.circular(9),
@@ -1038,7 +1036,7 @@ class _MiniBtnState extends State<_MiniBtn> {
   }
 }
 
-// ── Audit Card ────────────────────────────
+// Audit Card
 class _AuditCard extends StatefulWidget {
   final String action;
   final DateTime timestamp;
@@ -1126,7 +1124,7 @@ class _AuditCardState extends State<_AuditCard>
   String _pad(int n) => n.toString().padLeft(2, '0');
 }
 
-// ── Empty State ───────────────────────────
+// Empty State
 class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

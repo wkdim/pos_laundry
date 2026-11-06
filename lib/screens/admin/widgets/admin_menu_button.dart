@@ -4,7 +4,7 @@ import '../manage_models_screen.dart';
 
 class AdminMenuButton extends StatelessWidget {
   final Map<String, dynamic> admin;
-  const AdminMenuButton({Key? key, required this.admin}) : super(key: key);
+  const AdminMenuButton({super.key, required this.admin});
 
   @override
   Widget build(BuildContext context) {

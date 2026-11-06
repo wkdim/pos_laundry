@@ -7,14 +7,9 @@ import '../../core/constants/app_colors.dart';
 import '../../core/database/database_helper.dart';
 import '../../core/utils/excel_exporter.dart';
 import '../../core/utils/theme_provider.dart';
-import '../../widgets/app_header.dart';
 import '../../widgets/app_footer.dart';
-import '../../widgets/action_buttons_row.dart';
 import '../../widgets/modern_card_container.dart';
 import '../downloads/downloads_screen.dart';
-import '../admin/admin_panel_screen.dart';
-import '../audit/audit_log_screen.dart';
-import '../admin/widgets/change_password_dialog.dart';
 
 class ReportsScreen extends StatefulWidget {
   final Map<String, dynamic> admin;
@@ -133,7 +128,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Exported → $fileName'),
+          content: Text('Exported $fileName'),
           duration: const Duration(seconds: 4),
         ),
       );
@@ -157,7 +152,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
         MediaQuery.of(context).size.width < 600;
 
     // Extract summary data from daily report (calculate from returned records so
-    // summary includes ALL records regardless of Status — matches user expectation)
+    // summary includes ALL records regardless of Status - matches user expectation)
     final dailyRecordsRaw = (_dailyData['records'] as List?) ?? [];
     final dailyRecords = dailyRecordsRaw
         .map((e) => Map<String, dynamic>.from(e as Map))
@@ -167,9 +162,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
     for (var r in dailyRecords) {
       final amt = (r['Amount'] as num?)?.toDouble() ?? 0.0;
       final method = (r['PaymentType'] as String?)?.toLowerCase() ?? 'other';
-      if (method == 'cash')
+      if (method == 'cash') {
         cash += amt;
-      else if (method == 'mtn')
+      } else if (method == 'mtn')
         mtn += amt;
       else if (method == 'telecel')
         telecel += amt;
@@ -184,14 +179,14 @@ class _ReportsScreenState extends State<ReportsScreen> {
       {'label': 'Telecel', 'value': telecel, 'color': AppColors2.orange},
       {'label': 'Other', 'value': other, 'color': AppColors2.purple},
     ];
-    final Map<String, double> _cashSummary = {
+    final Map<String, double> cashSummary = {
       'Cash': cash,
       'MTN': mtn,
       'Telecel': telecel,
       'Other': other,
     };
 
-    PreferredSizeWidget _buildAppBar() {
+    PreferredSizeWidget buildAppBar() {
       return AppBar(
         backgroundColor: AppColors2.bg,
         elevation: 0,
@@ -214,7 +209,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors2.blue.withOpacity(0.4),
+                    color: AppColors2.blue.withValues(alpha: 0.4),
                     blurRadius: 16,
                     offset: const Offset(0, 4),
                   ),
@@ -249,8 +244,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
       );
     }
 
-    // ── BODY ──────────────────────────────────
-    Widget _buildBody() {
+    // Body
+    Widget buildBody() {
       final periodLabel = _selectedTab == 0
           ? DateFormat('MMMM yyyy').format(_selectedDate)
           : _selectedDate.year.toString();
@@ -262,15 +257,15 @@ class _ReportsScreenState extends State<ReportsScreen> {
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 120),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                // ── Daily Summary ──────────────
+                // Daily Summary
                 _DailySummaryCard(
                   date: DateTime.now(),
-                  cashSummary: _cashSummary,
+                  cashSummary: cashSummary,
                   totalRevenue: totalRevenue,
                 ),
                 const SizedBox(height: 20),
 
-                // ── Controls Row ───────────────
+                // Controls Row
                 _ControlsRow(
                   selectedTab: _selectedTab,
                   selectedDate: _selectedDate,
@@ -284,7 +279,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // ── Report Table ───────────────
+                // Report Table
                 // Build table from the returned `records` so mobile matches desktop/export
                 _ReportTableCard(
                   loading: _isLoading,
@@ -350,7 +345,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // ── Footer ─────────────────────
+                // Footer
                 _FooterCard(lastAction: _lastAction, timestamp: _auditLogTime),
               ]),
             ),
@@ -364,8 +359,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
       return Scaffold(
         backgroundColor: AppColors2.bg,
         extendBody: true,
-        appBar: _buildAppBar(),
-        body: _buildBody(),
+        appBar: buildAppBar(),
+        body: buildBody(),
         // bottomNavigationBar: _buildBottomNav(),
       );
     }
@@ -782,7 +777,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: DataTable(
-              headingRowColor: MaterialStateProperty.all(
+              headingRowColor: WidgetStateProperty.all(
                 const Color(0xFF184A90),
               ),
               headingTextStyle: const TextStyle(
@@ -800,7 +795,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
               rows: [
                 ...rows.map(
                   (r) => DataRow(
-                    color: MaterialStateProperty.all(
+                    color: WidgetStateProperty.all(
                       isDark ? Colors.grey.shade900 : Colors.white,
                     ),
                     cells: [
@@ -811,7 +806,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   ),
                 ),
                 DataRow(
-                  color: MaterialStateProperty.all(
+                  color: WidgetStateProperty.all(
                     isDark ? Colors.grey.shade800 : Colors.grey[300],
                   ),
                   cells: [
@@ -853,9 +848,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   }
 }
 
-// ─────────────────────────────────────────────
 //  SUB-WIDGETS
-// ─────────────────────────────────────────────
 
 class _IconBtn extends StatelessWidget {
   final IconData icon;
@@ -879,7 +872,7 @@ class _IconBtn extends StatelessWidget {
   );
 }
 
-// ── Daily Summary Card ────────────────────
+// Daily Summary Card
 class _DailySummaryCard extends StatelessWidget {
   final DateTime date;
   final Map<String, double> cashSummary;
@@ -904,13 +897,13 @@ class _DailySummaryCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors2.blue.withOpacity(0.1),
-            AppColors2.teal.withOpacity(0.05),
+            AppColors2.blue.withValues(alpha: 0.1),
+            AppColors2.teal.withValues(alpha: 0.05),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(color: AppColors2.blue.withOpacity(0.2)),
+        border: Border.all(color: AppColors2.blue.withValues(alpha: 0.2)),
         borderRadius: BorderRadius.circular(22),
       ),
       child: Column(
@@ -1017,8 +1010,8 @@ class _SummaryPill extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.12),
-      border: Border.all(color: color.withOpacity(0.25)),
+      color: color.withValues(alpha: 0.12),
+      border: Border.all(color: color.withValues(alpha: 0.25)),
       borderRadius: BorderRadius.circular(12),
     ),
     child: Column(
@@ -1047,7 +1040,7 @@ class _SummaryPill extends StatelessWidget {
   );
 }
 
-// ── Controls Row ──────────────────────────
+// Controls Row
 class _ControlsRow extends StatelessWidget {
   final int selectedTab;
   final DateTime selectedDate;
@@ -1211,7 +1204,7 @@ class _TabBtn extends StatelessWidget {
           boxShadow: active
               ? [
                   BoxShadow(
-                    color: AppColors2.blue.withOpacity(0.35),
+                    color: AppColors2.blue.withValues(alpha: 0.35),
                     blurRadius: 10,
                   ),
                 ]
@@ -1264,9 +1257,9 @@ class _ActionBtnState extends State<_ActionBtn> {
       padding: const EdgeInsets.symmetric(horizontal: 14),
       decoration: BoxDecoration(
         color: _pressed
-            ? widget.color.withOpacity(0.25)
-            : widget.color.withOpacity(0.15),
-        border: Border.all(color: widget.color.withOpacity(0.35)),
+            ? widget.color.withValues(alpha: 0.25)
+            : widget.color.withValues(alpha: 0.15),
+        border: Border.all(color: widget.color.withValues(alpha: 0.35)),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -1288,7 +1281,7 @@ class _ActionBtnState extends State<_ActionBtn> {
   );
 }
 
-// ── Report Table Card ─────────────────────
+// Report Table Card
 class _ReportTableCard extends StatelessWidget {
   final bool loading;
   final String periodLabel;
@@ -1322,7 +1315,7 @@ class _ReportTableCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: Colors.black.withValues(alpha: 0.3),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -1503,7 +1496,7 @@ class _TableRow extends StatelessWidget {
                   color: color,
                   shape: BoxShape.circle,
                   boxShadow: [
-                    BoxShadow(color: color.withOpacity(0.5), blurRadius: 4),
+                    BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: 4),
                   ],
                 ),
               ),
@@ -1548,7 +1541,7 @@ class _TableRow extends StatelessWidget {
   );
 }
 
-// ── Footer Card ───────────────────────────
+// Footer Card
 class _FooterCard extends StatefulWidget {
   final String lastAction;
   final DateTime timestamp;

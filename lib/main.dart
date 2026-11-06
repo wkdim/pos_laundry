@@ -77,8 +77,8 @@ Future<void> _configureWindow() async {
 
       // Set window title (include platform label for desktop)
       final windowTitle = Platform.isWindows
-          ? 'Laundry POS Pro — Windows App'
-          : 'Laundry POS Pro — Desktop App';
+          ? 'Laundry POS Pro (Windows)'
+          : 'Laundry POS Pro (Desktop)';
       window_size.setWindowTitle(windowTitle);
     }
   } catch (e) {
@@ -87,6 +87,8 @@ Future<void> _configureWindow() async {
 }
 
 class LaundryPOSApp extends StatelessWidget {
+  const LaundryPOSApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     // platform-aware title (used for mobile & desktop window/title bar)
@@ -101,7 +103,7 @@ class LaundryPOSApp extends StatelessWidget {
     //     : isWindowsPlatform
     //     ? 'Windows App'
     //     : defaultTargetPlatform.toString().split('.').last;
-    final appTitle = 'Laundry POS Pro —';
+    final appTitle = 'Laundry POS Pro';
 
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {

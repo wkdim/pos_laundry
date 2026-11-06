@@ -4,6 +4,8 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/database/database_helper.dart';
 
 class AddAdminDialog extends StatefulWidget {
+  const AddAdminDialog({super.key});
+
   @override
   _AddAdminDialogState createState() => _AddAdminDialogState();
 }
@@ -122,8 +124,9 @@ class _AddAdminDialogState extends State<AddAdminDialog> {
                     ),
                     validator: (v) {
                       if (v?.isEmpty ?? true) return 'Username is required';
-                      if (v!.length < 3)
+                      if (v!.length < 3) {
                         return 'Username must be at least 3 characters';
+                      }
                       return null;
                     },
                   ),
@@ -159,8 +162,9 @@ class _AddAdminDialogState extends State<AddAdminDialog> {
                     obscureText: _obscurePassword,
                     validator: (v) {
                       if (v?.isEmpty ?? true) return 'Password is required';
-                      if (v!.length < 6)
+                      if (v!.length < 6) {
                         return 'Password must be at least 6 characters';
+                      }
                       return null;
                     },
                   ),
@@ -190,7 +194,7 @@ class _AddAdminDialogState extends State<AddAdminDialog> {
                   const SizedBox(height: 16),
 
                   DropdownButtonFormField<String>(
-                    value: _role,
+                    initialValue: _role,
                     decoration: _inputDecoration(
                       context: context,
                       label: 'Role',
@@ -222,7 +226,7 @@ class _AddAdminDialogState extends State<AddAdminDialog> {
                               '(Standard access)',
                               style: TextStyle(
                                 fontSize: 13,
-                                color: colorScheme.onSurface.withOpacity(0.6),
+                                color: colorScheme.onSurface.withValues(alpha: 0.6),
                               ),
                             ),
                           ],
@@ -250,7 +254,7 @@ class _AddAdminDialogState extends State<AddAdminDialog> {
                               '(Full system access)',
                               style: TextStyle(
                                 fontSize: 13,
-                                color: colorScheme.onSurface.withOpacity(0.6),
+                                color: colorScheme.onSurface.withValues(alpha: 0.6),
                               ),
                             ),
                           ],
@@ -266,7 +270,7 @@ class _AddAdminDialogState extends State<AddAdminDialog> {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: isDark
-                          ? Colors.blueGrey.shade900.withOpacity(0.18)
+                          ? Colors.blueGrey.shade900.withValues(alpha: 0.18)
                           : Colors.blue.shade50,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
@@ -308,7 +312,7 @@ class _AddAdminDialogState extends State<AddAdminDialog> {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: isDark ? colorScheme.surfaceVariant : Colors.grey.shade50,
+              color: isDark ? colorScheme.surfaceContainerHighest : Colors.grey.shade50,
               border: Border(
                 top: BorderSide(
                   color: isDark ? colorScheme.outline : Colors.grey.shade200,
@@ -408,7 +412,7 @@ class _AddAdminDialogState extends State<AddAdminDialog> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors2.blue.withOpacity(0.35),
+                      color: AppColors2.blue.withValues(alpha: 0.35),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),
@@ -460,7 +464,7 @@ class _AddAdminDialogState extends State<AddAdminDialog> {
       hintText: hint,
       prefixIcon: Icon(icon, color: colorScheme.primary, size: 22),
       filled: true,
-      fillColor: isDark ? colorScheme.surfaceVariant : Colors.grey.shade50,
+      fillColor: isDark ? colorScheme.surfaceContainerHighest : Colors.grey.shade50,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(

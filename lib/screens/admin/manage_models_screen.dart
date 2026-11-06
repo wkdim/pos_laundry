@@ -7,7 +7,7 @@ import 'manage_service_types_screen.dart';
 import '../../core/utils/theme_provider.dart';
 
 class ManageModelsScreen extends StatelessWidget {
-  const ManageModelsScreen({Key? key}) : super(key: key);
+  const ManageModelsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class ManageModelsScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors2.blue.withOpacity(0.4),
+                      color: AppColors2.blue.withValues(alpha: 0.4),
                       blurRadius: 16,
                       offset: const Offset(0, 4),
                     ),
@@ -127,7 +127,7 @@ class ManageModelsScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isDark ? 0.3 : 0.06),
+              color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.06),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -155,7 +155,7 @@ class ManageModelsScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.blue.shade700.withOpacity(0.12),
+                        color: Colors.blue.shade700.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Icon(
@@ -268,8 +268,8 @@ class ManageModelsScreen extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: iconColor.withOpacity(0.1),
-                  border: Border.all(color: iconColor.withOpacity(0.18)),
+                  color: iconColor.withValues(alpha: 0.1),
+                  border: Border.all(color: iconColor.withValues(alpha: 0.18)),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(icon, color: iconColor, size: 19),

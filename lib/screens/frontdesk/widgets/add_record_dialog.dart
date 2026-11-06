@@ -6,7 +6,7 @@ import '../../../core/services/sync_service.dart';
 
 class AddRecordDialog extends StatefulWidget {
   final Map<String, dynamic> admin;
-  AddRecordDialog({required this.admin});
+  const AddRecordDialog({super.key, required this.admin});
 
   @override
   _AddRecordDialogState createState() => _AddRecordDialogState();
@@ -92,7 +92,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                 Text(
                   isOnline
                       ? 'Record added'
-                      : 'Saved offline — will sync when online',
+                      : 'Saved offline. It will sync when you are back online.',
                 ),
               ],
             ),
@@ -193,7 +193,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
             SizedBox(height: 16),
 
             DropdownButtonFormField<String>(
-              value: _service,
+              initialValue: _service,
               decoration: _inputDecoration(
                 context: context,
                 label: 'Service Type',
@@ -252,7 +252,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
             SizedBox(height: 16),
 
             DropdownButtonFormField<String>(
-              value: _paymentType,
+              initialValue: _paymentType,
               decoration: _inputDecoration(
                 context: context,
                 label: 'Payment Type',
@@ -297,11 +297,11 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
     final footerActions = Container(
       padding: EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: isDark ? colorScheme.surfaceVariant : Colors.grey.shade50,
+        color: isDark ? colorScheme.surfaceContainerHighest : Colors.grey.shade50,
         border: Border(
           top: BorderSide(
             color: isDark
-                ? colorScheme.outline.withOpacity(0.2)
+                ? colorScheme.outline.withValues(alpha: 0.2)
                 : Colors.grey.shade200,
           ),
         ),
@@ -381,7 +381,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors2.blue.withOpacity(0.35),
+                      color: AppColors2.blue.withValues(alpha: 0.35),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),
@@ -442,7 +442,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                   Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -469,7 +469,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
                           'Add laundry service details',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                           ),
                         ),
                       ],
@@ -513,7 +513,7 @@ class _AddRecordDialogState extends State<AddRecordDialog> {
       prefixText: prefix,
       suffixText: suffix,
       filled: true,
-      fillColor: isDark ? colorScheme.surfaceVariant : Colors.grey.shade50,
+      fillColor: isDark ? colorScheme.surfaceContainerHighest : Colors.grey.shade50,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: colorScheme.outline),
@@ -561,7 +561,7 @@ class _SectionHeader extends StatelessWidget {
         Expanded(
           child: Divider(
             color: isDark
-                ? colorScheme.outline.withOpacity(0.2)
+                ? colorScheme.outline.withValues(alpha: 0.2)
                 : Colors.grey.shade300,
           ),
         ),

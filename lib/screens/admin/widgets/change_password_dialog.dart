@@ -129,7 +129,7 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
         onPressed: onToggle,
       ),
       filled: true,
-      fillColor: isDark ? colorScheme.surfaceVariant : Colors.grey.shade50,
+      fillColor: isDark ? colorScheme.surfaceContainerHighest : Colors.grey.shade50,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide.none,
@@ -178,8 +178,9 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
               validator: _validateNewPassword,
               textInputAction: TextInputAction.next,
               onChanged: (_) {
-                if (_confirmCtrl.text.isNotEmpty)
+                if (_confirmCtrl.text.isNotEmpty) {
                   _formKey.currentState?.validate();
+                }
               },
             ),
             const SizedBox(height: 20),
@@ -203,13 +204,13 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: isDark
-                    ? AppColors2.amber.withOpacity(0.12)
-                    : AppColors2.amber.withOpacity(0.06),
+                    ? AppColors2.amber.withValues(alpha: 0.12)
+                    : AppColors2.amber.withValues(alpha: 0.06),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: isDark
-                      ? AppColors2.amber.withOpacity(0.22)
-                      : AppColors2.amber.withOpacity(0.12),
+                      ? AppColors2.amber.withValues(alpha: 0.22)
+                      : AppColors2.amber.withValues(alpha: 0.12),
                 ),
               ),
               child: Column(
@@ -224,8 +225,8 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: isDark
-                              ? AppColors2.amber.withOpacity(0.95)
-                              : AppColors2.amber.withOpacity(0.95),
+                              ? AppColors2.amber.withValues(alpha: 0.95)
+                              : AppColors2.amber.withValues(alpha: 0.95),
                         ),
                       ),
                     ],
@@ -315,7 +316,7 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors2.blue.withOpacity(0.35),
+                    color: AppColors2.blue.withValues(alpha: 0.35),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -394,7 +395,7 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.18),
+                      color: Colors.white.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
@@ -421,7 +422,7 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                           'Keep your account secure',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                           ),
                         ),
                       ],
@@ -502,7 +503,7 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: isDark
-                              ? Colors.amber.shade900.withOpacity(0.12)
+                              ? Colors.amber.shade900.withValues(alpha: 0.12)
                               : Colors.amber.shade50,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(

@@ -8,7 +8,6 @@ import '../../core/services/sync_service.dart';
 import '../../core/utils/theme_provider.dart';
 import '../../widgets/app_header.dart';
 import '../../widgets/app_footer.dart';
-import '../../widgets/action_buttons_row.dart';
 import '../../widgets/modern_card_container.dart';
 import '../auth/login_screen.dart';
 import 'widgets/add_record_dialog.dart';
@@ -16,7 +15,7 @@ import 'widgets/stat_card.dart';
 
 class FrontDeskScreen extends StatefulWidget {
   final Map<String, dynamic> admin;
-  FrontDeskScreen({required this.admin});
+  const FrontDeskScreen({super.key, required this.admin});
 
   @override
   _FrontDeskScreenState createState() => _FrontDeskScreenState();
@@ -55,7 +54,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
     }
   }
 
-  // ── Computed stats ────────────────────────
+  // Computed stats
   double _sum(String? type) => _records
       .where((r) => type == null || r['PaymentType'] == type)
       .fold(0, (s, r) => s + (r['Amount'] as num).toDouble());
@@ -178,6 +177,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
         r['RecordID'],
         widget.admin['AdminID'],
       );
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Payment finalized')));
@@ -190,6 +190,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
       r['RecordID'],
       widget.admin['AdminID'],
     );
+    if (!mounted) return;
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text('Record unlocked')));
@@ -231,6 +232,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
         r['RecordID'],
         widget.admin['AdminID'],
       );
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Record deleted')));
@@ -275,7 +277,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
         .where((r) => r['PaymentType'] == 'Other')
         .fold<double>(0, (sum, r) => sum + (r['Amount'] as num).toDouble());
 
-    PreferredSizeWidget _buildAppBar() {
+    PreferredSizeWidget buildAppBar() {
       return AppBar(
         backgroundColor: AppColors2.bg,
         elevation: 0,
@@ -298,7 +300,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors2.blue.withOpacity(0.4),
+                    color: AppColors2.blue.withValues(alpha: 0.4),
                     blurRadius: 16,
                     offset: const Offset(0, 4),
                   ),
@@ -385,8 +387,8 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
       );
     }
 
-    // ── FAB ───────────────────────────────────
-    Widget _buildFab() {
+    // Fab
+    Widget buildFab() {
       return GestureDetector(
         onTap: _add,
         child: Container(
@@ -401,7 +403,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: AppColors2.blue.withOpacity(0.5),
+                color: AppColors2.blue.withValues(alpha: 0.5),
                 blurRadius: 24,
                 offset: const Offset(0, 8),
               ),
@@ -412,8 +414,8 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
       );
     }
 
-    // ── BODY ──────────────────────────────────
-    Widget _buildBody() {
+    // Body
+    Widget buildBody() {
       return CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -421,7 +423,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 120),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                // ── Daily Summary ──────────────
+                // Daily Summary
                 _DailySummaryCard(
                   date: DateTime.now(),
                   cashSum: _sum('Cash'),
@@ -432,7 +434,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // ── Stat Cards ─────────────────
+                // Stat Cards
                 Row(
                   children: [
                     Expanded(
@@ -474,14 +476,14 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // ── Search ─────────────────────
+                // Search
                 _SearchBar(
                   controller: _search,
                   onChanged: (_) => setState(() {}),
                 ),
                 const SizedBox(height: 20),
 
-                // ── Records ────────────────────
+                // Records
                 if (_loading)
                   const Padding(
                     padding: EdgeInsets.all(48),
@@ -508,7 +510,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
                     ),
                   ),
 
-                // ── Footer ─────────────────────
+                // Footer
                 const SizedBox(height: 8),
                 _FooterCard(lastAction: _lastAction, timestamp: _auditTime),
               ]),
@@ -523,9 +525,9 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
       return Scaffold(
         backgroundColor: AppColors2.bg,
         extendBody: true,
-        appBar: _buildAppBar(),
-        floatingActionButton: _buildFab(),
-        body: _buildBody(),
+        appBar: buildAppBar(),
+        floatingActionButton: buildFab(),
+        body: buildBody(),
         // bottomNavigationBar: _buildBottomNav(),
       );
     }
@@ -828,13 +830,13 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
                     borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(isDark ? 0.3 : 0.04),
+                        color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.04),
                         blurRadius: 6,
                         offset: const Offset(0, 2),
                       ),
                     ],
                     border: Border.all(
-                      color: _getStatusColor(r['Status']).withOpacity(0.18),
+                      color: _getStatusColor(r['Status']).withValues(alpha: 0.18),
                     ),
                   ),
                   child: Padding(
@@ -844,7 +846,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF2196F3).withOpacity(0.08),
+                            color: const Color(0xFF2196F3).withValues(alpha: 0.08),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Icon(
@@ -914,7 +916,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
                                     decoration: BoxDecoration(
                                       color: const Color(
                                         0xFF2196F3,
-                                      ).withOpacity(0.08),
+                                      ).withValues(alpha: 0.08),
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: Text(
@@ -960,7 +962,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
                               decoration: BoxDecoration(
                                 color: _getStatusColor(
                                   r['Status'],
-                                ).withOpacity(0.1),
+                                ).withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(
                                   color: _getStatusColor(r['Status']),
@@ -1081,9 +1083,7 @@ class _FrontDeskScreenState extends State<FrontDeskScreen> {
   }
 }
 
-// ─────────────────────────────────────────────
 //  SUB-WIDGETS
-// ─────────────────────────────────────────────
 
 class _IconBtn extends StatelessWidget {
   final IconData icon;
@@ -1107,7 +1107,7 @@ class _IconBtn extends StatelessWidget {
   );
 }
 
-// ── Daily Summary Card ────────────────────
+// Daily Summary Card
 class _DailySummaryCard extends StatelessWidget {
   final DateTime date;
   final double cashSum, mtnSum, telecelSum, otherSum, totalRevenue;
@@ -1128,13 +1128,13 @@ class _DailySummaryCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors2.blue.withOpacity(0.10),
-            AppColors2.teal.withOpacity(0.05),
+            AppColors2.blue.withValues(alpha: 0.10),
+            AppColors2.teal.withValues(alpha: 0.05),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(color: AppColors2.blue.withOpacity(0.18)),
+        border: Border.all(color: AppColors2.blue.withValues(alpha: 0.18)),
         borderRadius: BorderRadius.circular(22),
       ),
       child: Column(
@@ -1249,8 +1249,8 @@ class _SummaryPill extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.12),
-      border: Border.all(color: color.withOpacity(0.25)),
+      color: color.withValues(alpha: 0.12),
+      border: Border.all(color: color.withValues(alpha: 0.25)),
       borderRadius: BorderRadius.circular(12),
     ),
     child: Column(
@@ -1279,7 +1279,7 @@ class _SummaryPill extends StatelessWidget {
   );
 }
 
-// ── Stat Card ─────────────────────────────
+// Stat Card
 class _StatCard extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -1306,8 +1306,8 @@ class _StatCard extends StatelessWidget {
           width: 36,
           height: 36,
           decoration: BoxDecoration(
-            color: color.withOpacity(0.12),
-            border: Border.all(color: color.withOpacity(0.2)),
+            color: color.withValues(alpha: 0.12),
+            border: Border.all(color: color.withValues(alpha: 0.2)),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Icon(icon, size: 17, color: color),
@@ -1337,7 +1337,7 @@ class _StatCard extends StatelessWidget {
   );
 }
 
-// ── Search Bar ────────────────────────────
+// Search Bar
 class _SearchBar extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
@@ -1369,7 +1369,7 @@ class _SearchBar extends StatelessWidget {
   );
 }
 
-// ── Record Card ───────────────────────────
+// Record Card
 class _RecordCard extends StatefulWidget {
   final Map<String, dynamic> record;
   final Color statusColor;
@@ -1425,13 +1425,13 @@ class _RecordCardState extends State<_RecordCard>
   @override
   Widget build(BuildContext context) {
     final r = widget.record;
-    final name = r['CustomerName']?.toString() ?? '—';
+    final name = r['CustomerName']?.toString() ?? '-';
     final phone = r['PhoneNumber']?.toString() ?? 'N/A';
-    final service = r['ServiceType']?.toString() ?? '—';
+    final service = r['ServiceType']?.toString() ?? '-';
     final weight = r['Weight']?.toString() ?? '0';
     final amount = (r['Amount'] as num?)?.toDouble() ?? 0.0;
-    final status = r['Status']?.toString() ?? '—';
-    final payment = r['PaymentType']?.toString() ?? '—';
+    final status = r['Status']?.toString() ?? '-';
+    final payment = r['PaymentType']?.toString() ?? '-';
     final createdAt = r['CreatedAt']?.toString() ?? '';
     final tsShort = createdAt.length >= 16
         ? createdAt.substring(0, 16)
@@ -1471,9 +1471,9 @@ class _RecordCardState extends State<_RecordCard>
                                 width: 44,
                                 height: 44,
                                 decoration: BoxDecoration(
-                                  color: AppColors2.blue.withOpacity(0.1),
+                                  color: AppColors2.blue.withValues(alpha: 0.1),
                                   border: Border.all(
-                                    color: AppColors2.blue.withOpacity(0.2),
+                                    color: AppColors2.blue.withValues(alpha: 0.2),
                                   ),
                                   borderRadius: BorderRadius.circular(13),
                                 ),
@@ -1579,8 +1579,9 @@ class _RecordCardState extends State<_RecordCard>
                                       ),
                                     ],
                                     onSelected: (val) {
-                                      if (val == 'Finalize')
+                                      if (val == 'Finalize') {
                                         widget.onFinalize();
+                                      }
                                       if (val == 'Unlock') widget.onUnlock();
                                       if (val == 'Delete') widget.onDelete();
                                     },
@@ -1617,10 +1618,10 @@ class _RecordCardState extends State<_RecordCard>
                                       vertical: 4,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: AppColors2.amber.withOpacity(0.08),
+                                      color: AppColors2.amber.withValues(alpha: 0.08),
                                       border: Border.all(
-                                        color: AppColors2.amber.withOpacity(
-                                          0.18,
+                                        color: AppColors2.amber.withValues(
+                                          alpha: 0.18,
                                         ),
                                       ),
                                       borderRadius: BorderRadius.circular(14),
@@ -1643,9 +1644,9 @@ class _RecordCardState extends State<_RecordCard>
                                   vertical: 4,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: widget.statusColor.withOpacity(0.1),
+                                  color: widget.statusColor.withValues(alpha: 0.1),
                                   border: Border.all(
-                                    color: widget.statusColor.withOpacity(0.3),
+                                    color: widget.statusColor.withValues(alpha: 0.3),
                                   ),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -1703,8 +1704,8 @@ class _Tag extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.1),
-      border: Border.all(color: color.withOpacity(0.2)),
+      color: color.withValues(alpha: 0.1),
+      border: Border.all(color: color.withValues(alpha: 0.2)),
       borderRadius: BorderRadius.circular(7),
     ),
     child: Text(
@@ -1718,7 +1719,7 @@ class _Tag extends StatelessWidget {
   );
 }
 
-// ── Empty State ───────────────────────────
+// Empty State
 class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
@@ -1758,7 +1759,7 @@ class _EmptyState extends StatelessWidget {
   );
 }
 
-// ── Footer Card ───────────────────────────
+// Footer Card
 class _FooterCard extends StatefulWidget {
   final String lastAction;
   final DateTime timestamp;

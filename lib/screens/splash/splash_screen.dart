@@ -5,6 +5,8 @@ import '../auth/login_screen.dart';
 import '../../core/utils/theme_provider.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -21,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen>
     _fade = Tween<double>(begin: 0.0, end: 1.0).animate(_ctrl);
     _ctrl.forward();
     Future.delayed(Duration(seconds: 5), () {
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => LoginScreen()),
@@ -73,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen>
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(isDark ? 0.5 : 0.26),
+                        color: Colors.black.withValues(alpha: isDark ? 0.5 : 0.26),
                         blurRadius: 20,
                         offset: Offset(0, 10),
                       ),

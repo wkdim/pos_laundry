@@ -13,7 +13,7 @@ import '../../core/constants/app_colors.dart';
 class DashboardScreen extends StatefulWidget {
   final Map<String, dynamic> admin;
 
-  DashboardScreen({required this.admin});
+  const DashboardScreen({super.key, required this.admin});
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
@@ -131,7 +131,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             ? []
             : [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
                   offset: const Offset(2, 0),
                 ),
@@ -154,7 +154,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF2196F3).withOpacity(0.3),
+                      color: const Color(0xFF2196F3).withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -202,7 +202,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: isSelected
-                ? const Color(0xFF2196F3).withOpacity(isDark ? 0.15 : 0.1)
+                ? const Color(0xFF2196F3).withValues(alpha: isDark ? 0.15 : 0.1)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
@@ -247,7 +247,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  // Custom bottom navigation (mobile) — uses `_idx` as the selected index.
+  // Custom bottom navigation (mobile) - uses `_idx` as the selected index.
   Widget _buildBottomNav(bool isDark) {
     final items = [
       {'icon': Icons.store_rounded, 'label': 'Front Desk'},
@@ -313,7 +313,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         borderRadius: BorderRadius.circular(3),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primary.withOpacity(0.25),
+                            color: AppColors.primary.withValues(alpha: 0.25),
                             blurRadius: 6,
                           ),
                         ],
@@ -336,8 +336,8 @@ class _DashboardScreenState extends State<DashboardScreen>
         filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
         child: Container(
           color: isDark
-              ? Colors.black.withOpacity(0.6)
-              : Colors.white.withOpacity(0.4),
+              ? Colors.black.withValues(alpha: 0.6)
+              : Colors.white.withValues(alpha: 0.4),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -350,7 +350,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: Container(
                         padding: const EdgeInsets.all(32),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF2196F3).withOpacity(0.15),
+                          color: const Color(0xFF2196F3).withValues(alpha: 0.15),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -382,7 +382,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   style: TextStyle(
                     fontSize: 16,
                     color: isDark
-                        ? Colors.white.withOpacity(0.7)
+                        ? Colors.white.withValues(alpha: 0.7)
                         : Colors.grey.shade700,
                   ),
                 ),

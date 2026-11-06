@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
-import '../../widgets/app_header.dart';
 import '../../widgets/app_footer.dart';
-import '../../widgets/action_buttons_row.dart';
 import '../../widgets/modern_card_container.dart';
 import '../../core/database/database_helper.dart';
 import '../../core/utils/theme_provider.dart';
 
 class AuditLogScreen extends StatefulWidget {
   final Map<String, dynamic> admin;
-  AuditLogScreen({required this.admin});
+  const AuditLogScreen({super.key, required this.admin});
 
   @override
   _AuditLogScreenState createState() => _AuditLogScreenState();
@@ -47,8 +45,9 @@ class _AuditLogScreenState extends State<AuditLogScreen> {
     if (action == null) return AppColors2.textMuted;
     if (action.contains('CREATE')) return AppColors2.green;
     if (action.contains('DELETE')) return AppColors2.red;
-    if (action.contains('UPDATE') || action.contains('UNLOCK'))
+    if (action.contains('UPDATE') || action.contains('UNLOCK')) {
       return AppColors2.orange;
+    }
     if (action.contains('FINALIZE')) return AppColors2.blue;
     if (action.contains('PASSWORD')) return AppColors2.amber;
     return AppColors2.textMuted;
@@ -119,7 +118,7 @@ class _AuditLogScreenState extends State<AuditLogScreen> {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors2.blue.withOpacity(0.4),
+                    color: AppColors2.blue.withValues(alpha: 0.4),
                     blurRadius: 16,
                     offset: const Offset(0, 4),
                   ),
@@ -150,8 +149,8 @@ class _AuditLogScreenState extends State<AuditLogScreen> {
       );
     }
 
-    // ── BODY ──────────────────────────────────
-    Widget _buildBody() {
+    // Body
+    Widget buildBody() {
       return CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -226,7 +225,7 @@ class _AuditLogScreenState extends State<AuditLogScreen> {
         backgroundColor: AppColors2.bg,
         extendBody: true,
         appBar: buildAppBar(),
-        body: _buildBody(),
+        body: buildBody(),
         // bottomNavigationBar: _buildBottomNav(),
       );
     }
@@ -443,8 +442,8 @@ class _AuditLogScreenState extends State<AuditLogScreen> {
                             borderRadius: BorderRadius.circular(14),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(
-                                  isDark ? 0.3 : 0.04,
+                                color: Colors.black.withValues(
+                                  alpha: isDark ? 0.3 : 0.04,
                                 ),
                                 blurRadius: 6,
                                 offset: const Offset(0, 2),
@@ -453,7 +452,7 @@ class _AuditLogScreenState extends State<AuditLogScreen> {
                             border: Border.all(
                               color: _actionColor(
                                 l['Action'],
-                              ).withOpacity(0.18),
+                              ).withValues(alpha: 0.18),
                             ),
                           ),
                           child: ListTile(
@@ -523,9 +522,7 @@ class _AuditLogScreenState extends State<AuditLogScreen> {
   // }
 }
 
-// ─────────────────────────────────────────────
 //  SUB-WIDGETS
-// ─────────────────────────────────────────────
 
 class _IconBtn extends StatelessWidget {
   final IconData icon;
@@ -549,7 +546,7 @@ class _IconBtn extends StatelessWidget {
   );
 }
 
-// ── Stats Bar ─────────────────────────────
+// Stats Bar
 class _StatsBar extends StatelessWidget {
   final int count;
   final DateTime? startDate;
@@ -567,13 +564,13 @@ class _StatsBar extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors2.blue.withOpacity(0.12),
-            AppColors2.teal.withOpacity(0.06),
+            AppColors2.blue.withValues(alpha: 0.12),
+            AppColors2.teal.withValues(alpha: 0.06),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(color: AppColors2.blue.withOpacity(0.2)),
+        border: Border.all(color: AppColors2.blue.withValues(alpha: 0.2)),
         borderRadius: BorderRadius.circular(18),
       ),
       child: Row(
@@ -636,7 +633,7 @@ class _Divider extends StatelessWidget {
       Container(width: 1, height: 36, color: AppColors2.border);
 }
 
-// ── Date Range Row ────────────────────────
+// Date Range Row
 class _DateRangeRow extends StatelessWidget {
   final DateTime? startDate;
   final DateTime? endDate;
@@ -651,7 +648,7 @@ class _DateRangeRow extends StatelessWidget {
   });
 
   String _fmt(DateTime? d) =>
-      d == null ? '—' : '${d.year}-${_p(d.month)}-${_p(d.day)}';
+      d == null ? '-' : '${d.year}-${_p(d.month)}-${_p(d.day)}';
   String _p(int n) => n.toString().padLeft(2, '0');
 
   @override
@@ -710,7 +707,7 @@ class _DateBtnState extends State<_DateBtn> {
           color: _pressed ? AppColors2.surfaceHigh : AppColors2.surface,
           border: Border.all(
             color: _pressed
-                ? AppColors2.blue.withOpacity(0.4)
+                ? AppColors2.blue.withValues(alpha: 0.4)
                 : AppColors2.border,
           ),
           borderRadius: BorderRadius.circular(12),
@@ -755,7 +752,7 @@ class _DateBtnState extends State<_DateBtn> {
   }
 }
 
-// ── Section Header ────────────────────────
+// Section Header
 class _SectionHeader extends StatelessWidget {
   final String title;
   const _SectionHeader({required this.title});
@@ -772,7 +769,7 @@ class _SectionHeader extends StatelessWidget {
   );
 }
 
-// ── Log Card ──────────────────────────────
+// Log Card
 class _LogCard extends StatefulWidget {
   final Map<String, dynamic> log;
   final Color color;
@@ -864,9 +861,9 @@ class _LogCardState extends State<_LogCard>
                             width: 40,
                             height: 40,
                             decoration: BoxDecoration(
-                              color: widget.color.withOpacity(0.12),
+                              color: widget.color.withValues(alpha: 0.12),
                               border: Border.all(
-                                color: widget.color.withOpacity(0.22),
+                                color: widget.color.withValues(alpha: 0.22),
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -942,7 +939,7 @@ class _LogCardState extends State<_LogCard>
   }
 }
 
-// ── Empty State ───────────────────────────
+// Empty State
 class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -984,7 +981,7 @@ class _EmptyState extends StatelessWidget {
   }
 }
 
-// ── Footer / Last Action Card ─────────────
+// Footer / Last Action Card
 class _FooterCard extends StatefulWidget {
   final String lastAction;
   final DateTime timestamp;

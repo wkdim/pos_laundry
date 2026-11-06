@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class MonthlyChart extends StatelessWidget {
   final List<Map<String, dynamic>> data;
-  MonthlyChart({required this.data});
+  const MonthlyChart({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
